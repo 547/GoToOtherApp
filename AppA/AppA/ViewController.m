@@ -27,7 +27,12 @@
 }
 //带值跳转到appB
 - (IBAction)addValueGoToAppB:(id)sender {
-    NSString *urlString=[NSString stringWithFormat:@"appB://%@",self.text.text];
+    //如果传的值不是NSstring或数字，就要先编码在传值，否则不能跳转===跳转的目的app接受编码过的值要先解码==[dicStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dic=@{@"nsme":@"122"};
+    NSString *dicStr=[NSString stringWithFormat:@"%@",dic];
+    
+    NSString *urlString=[NSString stringWithFormat:@"appB://%@",[dicStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 /**
